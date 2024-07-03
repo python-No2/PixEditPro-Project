@@ -25,6 +25,7 @@ Flask + flask-cors
 
 #### 前端
 
+```
 |——src
 
 |		|——assets
@@ -64,11 +65,13 @@ Flask + flask-cors
 |		|——Component.vue
 
 |		|——main.js  配置文件
+```
 
 
 
 #### 后端
 
+```
 |——PixEditPro
 
 |		|——core    核心功能文件
@@ -100,6 +103,7 @@ Flask + flask-cors
 |		|——config.py 		项目配置文件
 
 |		|——README.md
+```
 
 
 
