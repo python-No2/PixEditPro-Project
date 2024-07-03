@@ -48,7 +48,7 @@ export const StyleCategories = [
     { id: 43, name: '缪斯风格', path: require("@/static/style-type/la_muse.jpg")},
     { id: 44, name: '马赛克风格', path: require("@/static/style-type/mosaic.jpg")},
     { id: 45, name: '神奈川冲浪里风格', path: require("@/static/style-type/wave_crop.jpg")},
-    { id: 46, name: '抽象主义风格', path: require("@/static/style-type/udnie.jpg")},
+    { id: 46, name: '达达主义风格', path: require("@/static/style-type/udnie.jpg")},
     { id: 47, name: '呐喊风格', path: require("@/static/style-type/the_scream.jpg")},
     { id: 48, name: '羽毛风格', path: require("@/static/style-type/feathers.jpg")},
 ]

@@ -7,7 +7,7 @@ import logging as rel_log
 import shutil
 import core.main
 
-app = Flask(__name__, template_folder='./firstend/dist', static_folder='./firstend/dist', static_url_path="")
+app = Flask(__name__, template_folder='./templates/firstend/dist', static_folder='./templates/firstend/dist', static_url_path="")
 cors = CORS(app, supports_credentials=True)
 app.config['MAX_CONTENT_PATH'] = 1024*1024
 
