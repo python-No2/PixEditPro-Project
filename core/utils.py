@@ -16,7 +16,8 @@ def AddSaltPepperNoise(src, rate):
     Y = np.random.randint(height, size=(noiseCount,))
     srcCopy[Y, X] = 0
     return srcCopy
-                
+
+
 # 风格转换-糖果
 def trans2candy(image):
 
@@ -201,6 +202,12 @@ def trans2fea(image):
     return out
 
 # 图像修复
+import cv2 as cv
+import numpy as np
+
+import cv2 as cv
+import numpy as np
+
 def colorizer(image):
     # 设置模型路径
     prototxt = r'models/colorization_deploy_v2.prototxt'
@@ -217,7 +224,6 @@ def colorizer(image):
     net.getLayer(conv8).blobs = [np.full([1, 313], 2.606, dtype="float32")]  # 设置conv8_313_rh层的权重
 
     # 读取图像并转换颜色空间
-    # image = cv.imread(image)  # 读取图像文件
     scaled = image.astype("float32") / 255.0  # 将图像像素值缩放到[0,1]范围
     lab = cv.cvtColor(scaled, cv.COLOR_BGR2LAB)  # 将图像从BGR转换到LAB颜色空间
 
@@ -243,4 +249,24 @@ def colorizer(image):
 
     # 转换为8位无符号整数
     colorized = (255 * colorized).astype("uint8")  # 将像素值转换到[0,255]范围并转换为uint8类型
+
+    # 应用双边滤波以减少噪声同时保留边缘
+    colorized = cv.bilateralFilter(colorized, d=3, sigmaColor=30, sigmaSpace=30)
+
+    # 应用CLAHE进行对比度增强
+    lab = cv.cvtColor(colorized, cv.COLOR_BGR2LAB)
+    l, a, b = cv.split(lab)
+    clahe = cv.createCLAHE(clipLimit=1.5, tileGridSize=(8, 8))
+    cl = clahe.apply(l)
+    lab = cv.merge((cl, a, b))
+    colorized = cv.cvtColor(lab, cv.COLOR_LAB2BGR)
+
+    # 应用锐化滤波器以增强图像清晰度
+    kernel = np.array([[0, -0.5, 0],
+                       [-0.5, 3,-0.5],
+                       [0, -0.5, 0]])
+    colorized = cv.filter2D(colorized, -1, kernel)
+
     return colorized
+
+
